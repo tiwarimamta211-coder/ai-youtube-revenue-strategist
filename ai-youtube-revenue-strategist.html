@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI YouTube Revenue Strategist | IncomeAIHub</title>
+<meta name="description" content="AI-powered YouTube revenue calculator and growth strategist for Indian creators — AdSense estimator, sponsorship rate calculator, monetization diversification score & 90-day action plan.">
+<style>
+  :root{
+    --cyan:#00f7ff;
+    --purple:#a855f7;
+    --green:#00ff9d;
+    --pink:#ff2b8f;
+    --yellow:#ffd93d;
+    --bg0:#05060a;
+    --bg1:#0a0e17;
+    --bg2:#0f1420;
+    --panel:#0c111c;
+    --border:rgba(0,247,255,0.25);
+    --text:#d9e6ff;
+    --text-dim:#7c8aad;
+    --font-head:'Orbitron', sans-serif;
+    --font-body:'Rajdhani', sans-serif;
+    --font-mono:'Share Tech Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap');
+
+  html,body{
+    background:var(--bg0);
+    color:var(--text);
+    font-family:var(--font-body);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+
+  body{
+    background-image:
+      linear-gradient(rgba(0,247,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,247,255,0.05) 1px, transparent 1px),
+      radial-gradient(circle at 20% 10%, rgba(168,85,247,0.12), transparent 40%),
+      radial-gradient(circle at 80% 90%, rgba(0,247,255,0.1), transparent 40%);
+    background-size:38px 38px, 38px 38px, 100% 100%, 100% 100%;
+    position:relative;
+  }
+
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background:repeating-linear-gradient(
+      0deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px,
+      transparent 1px, transparent 3px
+    );
+    pointer-events:none;
+    z-index:9999;
+    animation:scan 8s linear infinite;
+  }
+  @keyframes scan{ 0%{background-position:0 0;} 100%{background-position:0 120px;} }
+
+  .wrap{max-width:1200px; margin:0 auto; padding:20px 16px 60px;}
+
+  /* HEADER */
+  header{
+    text-align:center;
+    padding:34px 16px 26px;
+    position:relative;
+  }
+  .badge{
+    display:inline-block;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:3px;
+    color:var(--green);
+    border:1px solid rgba(0,255,157,0.4);
+    padding:4px 14px;
+    border-radius:20px;
+    background:rgba(0,255,157,0.06);
+    margin-bottom:16px;
+    text-transform:uppercase;
+  }
+  h1{
+    font-family:var(--font-head);
+    font-weight:900;
+    font-size:clamp(24px,5vw,44px);
+    letter-spacing:1px;
+    background:linear-gradient(90deg,var(--cyan),var(--purple) 55%,var(--green));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow:0 0 40px rgba(0,247,255,0.25);
+    line-height:1.25;
+  }
+  header p.sub{
+    color:var(--text-dim);
+    font-size:clamp(13px,2vw,17px);
+    margin-top:10px;
+    font-weight:500;
+    max-width:680px;
+    margin-left:auto; margin-right:auto;
+  }
+
+  /* AD SLOTS */
+  .ad-slot{
+    border:1px dashed rgba(0,247,255,0.3);
+    background:rgba(255,255,255,0.02);
+    color:var(--text-dim);
+    text-align:center;
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:2px;
+    padding:10px;
+    border-radius:10px;
+    margin:22px 0;
+    min-height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  /* PANEL */
+  .panel{
+    background:linear-gradient(160deg, var(--panel), var(--bg2));
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:22px;
+    position:relative;
+    box-shadow:0 0 0 1px rgba(255,255,255,0.02), 0 20px 40px -20px rgba(0,0,0,0.6);
+  }
+  .panel::before{
+    content:"";
+    position:absolute; top:0; left:20px; right:20px; height:1px;
+    background:linear-gradient(90deg, transparent, var(--cyan), transparent);
+    opacity:0.6;
+  }
+  .panel h2{
+    font-family:var(--font-head);
+    font-size:clamp(15px,2.4vw,19px);
+    color:var(--cyan);
+    letter-spacing:1px;
+    margin-bottom:6px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .panel h2 .num{
+    font-family:var(--font-mono);
+    font-size:12px;
+    background:rgba(0,247,255,0.1);
+    border:1px solid var(--border);
+    color:var(--cyan);
+    padding:2px 9px;
+    border-radius:6px;
+  }
+  .panel .desc{
+    color:var(--text-dim);
+    font-size:13.5px;
+    margin-bottom:18px;
+  }
+
+  /* FORM */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
+    gap:16px;
+  }
+  .field label{
+    display:block;
+    font-size:12.5px;
+    color:var(--green);
+    font-family:var(--font-mono);
+    letter-spacing:1px;
+    margin-bottom:6px;
+    text-transform:uppercase;
+  }
+  .field select, .field input[type=number], .field input[type=text]{
+    width:100%;
+    background:var(--bg1);
+    border:1px solid var(--border);
+    color:var(--text);
+    padding:11px 12px;
+    border-radius:8px;
+    font-family:var(--font-body);
+    font-size:15px;
+    font-weight:600;
+    outline:none;
+    transition:.2s;
+  }
+  .field select:focus, .field input:focus{
+    border-color:var(--cyan);
+    box-shadow:0 0 0 3px rgba(0,247,255,0.12);
+  }
+  .field .hint{font-size:11px; color:var(--text-dim); margin-top:5px;}
+
+  .checkgrid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(190px,1fr));
+    gap:10px;
+    margin-top:6px;
+  }
+  .checkitem{
+    display:flex; align-items:center; gap:9px;
+    background:var(--bg1);
+    border:1px solid var(--border);
+    padding:10px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:13.5px;
+    font-weight:600;
+    transition:.2s;
+  }
+  .checkitem:hover{border-color:var(--cyan);}
+  .checkitem input{accent-color:var(--cyan); width:16px; height:16px;}
+  .checkitem.active{border-color:var(--green); background:rgba(0,255,157,0.06); color:var(--green);}
+
+  .btnrow{display:flex; gap:12px; flex-wrap:wrap; margin-top:22px;}
+  button{
+    font-family:var(--font-head);
+    font-size:13px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    padding:13px 26px;
+    border-radius:9px;
+    border:none;
+    cursor:pointer;
+    transition:.2s;
+  }
+  .btn-primary{
+    background:linear-gradient(90deg,var(--cyan),var(--purple));
+    color:#04070d;
+    font-weight:700;
+    box-shadow:0 0 25px rgba(0,247,255,0.25);
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 6px 30px rgba(0,247,255,0.4);}
+  .btn-secondary{
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--text);
+  }
+  .btn-secondary:hover{border-color:var(--purple); color:var(--purple);}
+  .btn-small{
+    padding:8px 16px; font-size:11px;
+  }
+
+  /* RESULTS */
+  #results{display:none;}
+  .statgrid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:16px;
+    margin-bottom:20px;
+  }
+  .stat{
+    background:var(--bg1);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:18px;
+    position:relative;
+    overflow:hidden;
+  }
+  .stat::after{
+    content:"";
+    position:absolute; right:-30px; top:-30px;
+    width:100px; height:100px;
+    background:radial-gradient(circle, rgba(0,247,255,0.15), transparent 70%);
+  }
+  .stat .label{font-family:var(--font-mono); font-size:11px; color:var(--text-dim); letter-spacing:1px; text-transform:uppercase;}
+  .stat .value{
+    font-family:var(--font-head);
+    font-size:clamp(20px,3vw,28px);
+    color:var(--green);
+    margin-top:8px;
+    font-weight:700;
+  }
+  .stat .value.cyan{color:var(--cyan);}
+  .stat .value.purple{color:var(--purple);}
+  .stat .subtext{font-size:12px; color:var(--text-dim); margin-top:6px;}
+
+  /* GAUGE */
+  .gauge-wrap{display:flex; align-items:center; gap:24px; flex-wrap:wrap;}
+  .gauge{position:relative; width:160px; height:160px; flex-shrink:0;}
+  .gauge svg{transform:rotate(-90deg);}
+  .gauge-label{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  .gauge-label .num{font-family:var(--font-head); font-size:30px; color:var(--cyan);}
+  .gauge-label .txt{font-family:var(--font-mono); font-size:10px; color:var(--text-dim); letter-spacing:1px;}
+
+  /* BARS */
+  .barlist{display:flex; flex-direction:column; gap:12px;}
+  .barrow{display:grid; grid-template-columns:150px 1fr 70px; align-items:center; gap:12px;}
+  .barrow .bname{font-size:13px; font-weight:600; color:var(--text);}
+  .bartrack{background:var(--bg1); border:1px solid var(--border); border-radius:8px; height:14px; overflow:hidden;}
+  .barfill{height:100%; border-radius:8px; background:linear-gradient(90deg,var(--cyan),var(--green)); transition:width .6s ease;}
+  .barrow .bval{font-family:var(--font-mono); font-size:12px; color:var(--green); text-align:right;}
+
+  /* STRATEGY LIST */
+  .strategy-list{list-style:none; display:flex; flex-direction:column; gap:12px;}
+  .strategy-list li{
+    background:var(--bg1);
+    border:1px solid var(--border);
+    border-left:3px solid var(--cyan);
+    padding:13px 16px;
+    border-radius:8px;
+    font-size:14.5px;
+    line-height:1.5;
+  }
+  .strategy-list li b{color:var(--green);}
+
+  /* ACTION PLAN TABS */
+  .phase-tabs{display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap;}
+  .phase-tab{
+    padding:8px 18px; border-radius:20px; border:1px solid var(--border);
+    font-family:var(--font-mono); font-size:12px; cursor:pointer; color:var(--text-dim);
+  }
+  .phase-tab.active{background:rgba(0,247,255,0.12); color:var(--cyan); border-color:var(--cyan);}
+  .phase-content{display:none;}
+  .phase-content.active{display:block;}
+  .checklist{list-style:none; display:flex; flex-direction:column; gap:10px;}
+  .checklist li{
+    display:flex; gap:10px; align-items:flex-start;
+    background:var(--bg1); border:1px solid var(--border); padding:11px 14px; border-radius:8px; font-size:14px;
+  }
+  .checklist input{margin-top:3px; accent-color:var(--green); width:16px; height:16px; flex-shrink:0;}
+  .checklist li.done label{text-decoration:line-through; color:var(--text-dim);}
+
+  /* SPONSOR CALC RESULT */
+  .rate-box{
+    display:flex; justify-content:space-between; align-items:center;
+    background:linear-gradient(90deg, rgba(0,247,255,0.08), rgba(168,85,247,0.08));
+    border:1px solid var(--border);
+    padding:18px 20px; border-radius:12px; margin-top:14px; flex-wrap:wrap; gap:12px;
+  }
+  .rate-box .rlabel{font-family:var(--font-mono); font-size:12px; color:var(--text-dim); letter-spacing:1px;}
+  .rate-box .rvalue{font-family:var(--font-head); font-size:22px; color:var(--green);}
+
+  /* USAGE GUIDE */
+  .guide{
+    background:linear-gradient(160deg, rgba(0,255,157,0.05), rgba(0,247,255,0.03));
+    border:1px solid rgba(0,255,157,0.3);
+  }
+  .guide h2{color:var(--green);}
+  .guide-steps{display:flex; flex-direction:column; gap:10px;}
+  .guide-steps .gstep{display:flex; gap:12px; align-items:flex-start; font-size:14.5px; line-height:1.6;}
+  .guide-steps .gnum{
+    flex-shrink:0; width:26px; height:26px; border-radius:50%;
+    background:rgba(0,255,157,0.15); border:1px solid var(--green); color:var(--green);
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:12px;
+  }
+
+  /* AI KEY BOX */
+  .ai-box{
+    display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    background:var(--bg1); border:1px solid var(--border); padding:14px 16px; border-radius:10px; margin-top:12px;
+  }
+  .ai-box input{flex:1; min-width:200px; background:var(--bg0); border:1px solid var(--border); color:var(--text); padding:10px 12px; border-radius:8px; font-family:var(--font-mono); font-size:13px;}
+  .ai-status{font-family:var(--font-mono); font-size:11px; color:var(--text-dim);}
+  .ai-note{margin-top:10px;}
+  #aiStrategyOutput{margin-top:16px; white-space:pre-wrap; font-size:14.5px; line-height:1.7; background:var(--bg1); border:1px solid var(--border); border-radius:10px; padding:16px; display:none;}
+
+  footer{
+    text-align:center; padding:30px 16px 10px; color:var(--text-dim); font-size:12px; font-family:var(--font-mono);
+  }
+  footer span{color:var(--cyan);}
+
+  @media(max-width:640px){
+    .barrow{grid-template-columns:100px 1fr 55px;}
+    .gauge-wrap{justify-content:center;}
+  }
+
+  ::-webkit-scrollbar{width:8px;}
+  ::-webkit-scrollbar-track{background:var(--bg0);}
+  ::-webkit-scrollbar-thumb{background:var(--purple); border-radius:4px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="badge">⚡ IncomeAIHub Tool Suite</div>
+    <h1>AI YouTube Revenue Strategist</h1>
+    <p class="sub">Estimate your AdSense, sponsorship & multi-stream YouTube income — get an AI-powered growth roadmap tailored to your niche, subscribers & audience.</p>
+  </header>
+
+  <div class="ad-slot">AD SLOT — TOP (728x90) — ca-pub-XXXXXXXXXXXXXXXX</div>
+
+  <!-- INPUT PANEL -->
+  <div class="panel">
+    <h2><span class="num">01</span> Channel Details</h2>
+    <p class="desc">Apna channel data daalo — jitna accurate data, utna sahi estimate.</p>
+
+    <div class="grid">
+      <div class="field">
+        <label>Channel Niche</label>
+        <select id="niche">
+          <option value="finance">Finance & Investing</option>
+          <option value="tech">Tech & Reviews</option>
+          <option value="business">Business & Marketing</option>
+          <option value="education">Education & Tutorials</option>
+          <option value="beauty">Beauty & Fashion</option>
+          <option value="gaming">Gaming</option>
+          <option value="entertainment" selected>Entertainment / Vlogs</option>
+          <option value="other">Other / General</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Subscribers</label>
+        <input type="number" id="subs" value="15000" min="0">
+      </div>
+      <div class="field">
+        <label>Avg Views / Video</label>
+        <input type="number" id="avgViews" value="4000" min="0">
+      </div>
+      <div class="field">
+        <label>Videos / Month</label>
+        <input type="number" id="videosMonth" value="8" min="0">
+      </div>
+      <div class="field">
+        <label>Avg Engagement Rate (%)</label>
+        <input type="number" id="engagement" value="4" min="0" max="100" step="0.1">
+        <div class="hint">(likes+comments)/views × 100</div>
+      </div>
+      <div class="field">
+        <label>Audience — Tier-1 (US/UK/CA/AU) %</label>
+        <input type="number" id="tier1" value="10" min="0" max="100">
+      </div>
+      <div class="field">
+        <label>Audience — India %</label>
+        <input type="number" id="india" value="70" min="0" max="100">
+      </div>
+      <div class="field">
+        <label>Audience — Other Countries %</label>
+        <input type="number" id="otherC" value="20" min="0" max="100">
+      </div>
+    </div>
+
+    <div style="margin-top:20px;">
+      <label style="display:block; font-size:12.5px; color:var(--green); font-family:var(--font-mono); letter-spacing:1px; margin-bottom:10px; text-transform:uppercase;">Active / Planned Monetization Streams</label>
+      <div class="checkgrid" id="streamGrid">
+        <label class="checkitem active"><input type="checkbox" value="adsense" checked> AdSense (Ads)</label>
+        <label class="checkitem"><input type="checkbox" value="sponsor"> Brand Sponsorships</label>
+        <label class="checkitem"><input type="checkbox" value="affiliate"> Affiliate Marketing</label>
+        <label class="checkitem"><input type="checkbox" value="membership"> Memberships / Super Thanks</label>
+        <label class="checkitem"><input type="checkbox" value="digital"> Digital Products / Courses</label>
+        <label class="checkitem"><input type="checkbox" value="merch"> Merchandise</label>
+      </div>
+    </div>
+
+    <div class="btnrow">
+      <button class="btn-primary" onclick="calculateAll()">⚡ Generate Revenue Strategy</button>
+      <button class="btn-secondary" onclick="saveProfile()">💾 Save Profile</button>
+      <button class="btn-secondary" onclick="loadProfile()">📂 Load Saved</button>
+      <button class="btn-secondary" onclick="exportReport()">📄 Export Report</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results">
+
+    <div class="panel">
+      <h2><span class="num">02</span> Revenue Estimate</h2>
+      <p class="desc">Monthly income estimate based on your inputs (INR).</p>
+      <div class="statgrid" id="statGrid"></div>
+    </div>
+
+    <div class="ad-slot">AD SLOT — MID (728x90) — ca-pub-XXXXXXXXXXXXXXXX</div>
+
+    <div class="panel">
+      <h2><span class="num">03</span> Monetization Diversification Score</h2>
+      <p class="desc">Single income source = risky. Yahan dekho apna diversification score aur stream-wise breakdown.</p>
+      <div class="gauge-wrap">
+        <div class="gauge">
+          <svg width="160" height="160" viewBox="0 0 160 160">
+            <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="14"/>
+            <circle id="gaugeCircle" cx="80" cy="80" r="70" fill="none" stroke="url(#gaugeGrad)" stroke-width="14" stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="440"/>
+            <defs>
+              <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00f7ff"/>
+                <stop offset="100%" stop-color="#00ff9d"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="gauge-label">
+            <div class="num" id="scoreNum">0</div>
+            <div class="txt">SCORE / 100</div>
+          </div>
+        </div>
+        <div style="flex:1; min-width:240px;">
+          <div class="barlist" id="streamBars"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2><span class="num">04</span> Brand Sponsorship Rate Calculator</h2>
+      <p class="desc">Yeh suggested rate range hai jo tum brands se negotiate karte waqt quote kar sakte ho.</p>
+      <div class="grid">
+        <div class="field">
+          <label>Sponsorship Type</label>
+          <select id="sponsorType">
+            <option value="integration">60s Integration (mid-roll)</option>
+            <option value="dedicated">Dedicated Video</option>
+            <option value="shoutout">Shoutout / Mention (30s)</option>
+          </select>
+        </div>
+      </div>
+      <div class="rate-box">
+        <div>
+          <div class="rlabel">SUGGESTED RATE RANGE</div>
+          <div class="rvalue" id="sponsorRate">₹0 – ₹0</div>
+        </div>
+        <button class="btn-secondary btn-small" onclick="recalcSponsor()">🔄 Recalculate</button>
+      </div>
+    </div>
+
+    <div class="ad-slot">AD SLOT — MID-2 — ca-pub-XXXXXXXXXXXXXXXX</div>
+
+    <div class="panel">
+      <h2><span class="num">05</span> AI Growth Strategy</h2>
+      <p class="desc">Tumhare channel data ke hisaab se personalized growth aur revenue-boost recommendations.</p>
+      <ul class="strategy-list" id="strategyList"></ul>
+
+      <div class="ai-box">
+        <input type="text" id="claudeApiKey" placeholder="Optional: Claude API Key for deeper AI-generated strategy (kept in your browser only)">
+        <button class="btn-primary btn-small" onclick="generateAIStrategy()">🤖 Get Deeper AI Strategy</button>
+      </div>
+      <p class="ai-note hint" style="color:var(--text-dim); font-size:12px;">Key na do to bhi upar wali rule-based strategy kaam karti hai. Key doge to Claude ek aur detailed, personalized plan generate karega.</p>
+      <div id="aiStrategyOutput"></div>
+    </div>
+
+    <div class="panel">
+      <h2><span class="num">06</span> 90-Day Action Plan</h2>
+      <p class="desc">Step-by-step checklist — progress apne aap save hoti hai.</p>
+      <div class="phase-tabs">
+        <div class="phase-tab active" onclick="showPhase(0)">Days 1–30</div>
+        <div class="phase-tab" onclick="showPhase(1)">Days 31–60</div>
+        <div class="phase-tab" onclick="showPhase(2)">Days 61–90</div>
+      </div>
+      <div id="phaseContainer"></div>
+    </div>
+  </div>
+
+  <div class="ad-slot">AD SLOT — BOTTOM (728x90) — ca-pub-XXXXXXXXXXXXXXXX</div>
+
+  <!-- HINDI USAGE GUIDE -->
+  <div class="panel guide">
+    <h2>📘 Tool Kaise Use Karein (Hindi Guide)</h2>
+    <div class="guide-steps">
+      <div class="gstep"><div class="gnum">1</div><div><b>Channel Details bharo:</b> Apna niche, subscribers, average views per video, monthly upload count aur engagement rate daalo. Agar exact number nahi pata to andaza (estimate) bhi chalega.</div></div>
+      <div class="gstep"><div class="gnum">2</div><div><b>Audience Country Mix:</b> YouTube Studio → Audience tab me dekho ki tumhare viewers kaunse country se aate hain. India, Tier-1 (US/UK/Canada/Australia) aur baaki countries ka % daalo — total 100% hona chahiye.</div></div>
+      <div class="gstep"><div class="gnum">3</div><div><b>Monetization Streams select karo:</b> Jo bhi income source abhi active hai ya plan kar rahe ho (AdSense, Sponsorship, Affiliate, etc.) unpar click karo.</div></div>
+      <div class="gstep"><div class="gnum">4</div><div><b>"Generate Revenue Strategy" dabao:</b> Turant tumhe monthly revenue estimate, diversification score, sponsorship rate aur growth strategy mil jayegi.</div></div>
+      <div class="gstep"><div class="gnum">5</div><div><b>Sponsorship Rate Calculator</b> se pata karo brands ko kitna charge karna chahiye — yeh number negotiation me kaam aayega.</div></div>
+      <div class="gstep"><div class="gnum">6</div><div><b>90-Day Action Plan</b> follow karo — checkboxes tick karte jao, progress apne aap save hoti hai (browser me).</div></div>
+      <div class="gstep"><div class="gnum">7</div><div><b>Save Profile</b> dabao taaki agli baar aake wahi data wapas load kar sako. <b>Export Report</b> se pura analysis text file me download kar sakte ho — client ko dikhane ke liye bhi use kar sakte ho.</div></div>
+      <div class="gstep"><div class="gnum">8</div><div><b>Optional AI Strategy:</b> Agar tumhare paas Claude API key hai to "Get Deeper AI Strategy" se aur detailed, personalized growth plan generate kar sakte ho. Key na ho to bhi tool poori tarah kaam karega (rule-based strategy).</div></div>
+    </div>
+  </div>
+
+  <footer>
+    Powered by <span>IncomeAIHub</span> · All calculations run locally in your browser · No data leaves your device
+  </footer>
+</div>
+
+<script>
+/* ================= CONFIG ================= */
+const NICHE_CPM = { // base CPM in USD for Tier-1 (US/UK/CA/AU) audience
+  finance:{low:12, high:25, sponsorMult:1.6, label:"Finance & Investing"},
+  tech:{low:8, high:15, sponsorMult:1.3, label:"Tech & Reviews"},
+  business:{low:10, high:18, sponsorMult:1.4, label:"Business & Marketing"},
+  education:{low:6, high:12, sponsorMult:1.1, label:"Education & Tutorials"},
+  beauty:{low:4, high:9, sponsorMult:1.2, label:"Beauty & Fashion"},
+  gaming:{low:3, high:7, sponsorMult:1.0, label:"Gaming"},
+  entertainment:{low:2, high:5, sponsorMult:0.9, label:"Entertainment / Vlogs"},
+  other:{low:4, high:8, sponsorMult:1.0, label:"Other / General"}
+};
+const USD_INR = 83;
+const TIER1_FACTOR = 1.0;
+const INDIA_FACTOR = 0.18;
+const OTHER_FACTOR = 0.35;
+
+const STREAM_META = {
+  adsense:{name:"AdSense (Ads)", weight:20},
+  sponsor:{name:"Brand Sponsorships", weight:22},
+  affiliate:{name:"Affiliate Marketing", weight:18},
+  membership:{name:"Memberships/Super Thanks", weight:14},
+  digital:{name:"Digital Products/Courses", weight:16},
+  merch:{name:"Merchandise", weight:10}
+};
+
+const ACTION_PHASES = [
+  { title:"Foundation & Optimization", items:[
+    "Channel banner, About section aur playlist structure optimize karo",
+    "Top 10 performing videos ke titles/thumbnails ko SEO ke hisaab se refresh karo",
+    "Content calendar banao — niche ke हिसाब se weekly upload schedule fix karo",
+    "AdSense/monetization eligibility check karo aur missing requirements poore karo",
+    "3 potential brand-fit list banao jo tumhare niche se match karte hain"
+  ]},
+  { title:"Monetization Expansion", items:[
+    "Affiliate links (Amazon Associates / niche-specific programs) add karna start karo",
+    "Ek low-ticket digital product (ebook/template/mini-course) ka outline banao",
+    "Channel memberships ya Super Thanks enable karo agar eligible ho",
+    "5 brands ko personalized sponsorship pitch email bhejo",
+    "Community tab aur Shorts se engagement badhao"
+  ]},
+  { title:"Scale & Diversify", items:[
+    "Digital product launch karo aur email list building start karo",
+    "Sponsorship rate card finalize karo aur media kit banao",
+    "Best-performing content format ka ek series banao (consistency)",
+    "Analytics review karo — kaunsa stream sabse zyada revenue de raha hai, usme double down karo",
+    "Next 90-day goals set karo based on is quarter ke results"
+  ]}
+];
+
+/* ================= HELPERS ================= */
+const inr = n => '₹' + Math.round(n).toLocaleString('en-IN');
+const $ = id => document.getElementById(id);
+
+function getBlendFactor(){
+  const t1 = parseFloat($('tier1').value)||0;
+  const ind = parseFloat($('india').value)||0;
+  const oth = parseFloat($('otherC').value)||0;
+  const total = t1+ind+oth || 100;
+  return (t1/total)*TIER1_FACTOR + (ind/total)*INDIA_FACTOR + (oth/total)*OTHER_FACTOR;
+}
+
+function getActiveStreams(){
+  return Array.from(document.querySelectorAll('#streamGrid input:checked')).map(el=>el.value);
+}
+
+/* checkbox visual toggle */
+document.querySelectorAll('#streamGrid input').forEach(cb=>{
+  cb.addEventListener('change', ()=>{
+    cb.closest('.checkitem').classList.toggle('active', cb.checked);
+  });
+});
+
+/* ================= CORE CALC ================= */
+function calculateAll(){
+  const niche = $('niche').value;
+  const subs = parseFloat($('subs').value)||0;
+  const avgViews = parseFloat($('avgViews').value)||0;
+  const videosMonth = parseFloat($('videosMonth').value)||0;
+  const engagement = parseFloat($('engagement').value)||0;
+  const cfg = NICHE_CPM[niche];
+  const blend = getBlendFactor();
+
+  const cpmLowINR = cfg.low * blend * USD_INR;
+  const cpmHighINR = cfg.high * blend * USD_INR;
+  const cpmAvgINR = (cpmLowINR+cpmHighINR)/2;
+
+  const monthlyViews = avgViews * videosMonth;
+  const adsenseLow = (monthlyViews/1000) * cpmLowINR;
+  const adsenseHigh = (monthlyViews/1000) * cpmHighINR;
+  const adsenseAvg = (adsenseLow+adsenseHigh)/2;
+
+  // sponsorship per video estimate (used in overview + rate calculator)
+  const baseRatePer1000USD = 10 * cfg.sponsorMult;
+  const engagementFactor = Math.max(0.6, Math.min(1.8, engagement/4));
+  const sponsorPerVideoINR = (subs/1000) * baseRatePer1000USD * engagementFactor * USD_INR;
+
+  const activeStreams = getActiveStreams();
+  let otherStreamsMonthly = 0;
+  if(activeStreams.includes('sponsor')) otherStreamsMonthly += sponsorPerVideoINR * Math.min(videosMonth, 4) * 0.5; // assume ~50% of videos sponsored on avg, capped
+  if(activeStreams.includes('affiliate')) otherStreamsMonthly += adsenseAvg * 0.4;
+  if(activeStreams.includes('membership')) otherStreamsMonthly += subs * 0.003 * 50;
+  if(activeStreams.includes('digital')) otherStreamsMonthly += (subs/1000) * 300;
+  if(activeStreams.includes('merch')) otherStreamsMonthly += (subs/1000) * 150;
+
+  const adsenseInStreams = activeStreams.includes('adsense') ? adsenseAvg : 0;
+  const totalMonthly = adsenseInStreams + otherStreamsMonthly;
+
+  renderStats({adsenseLow, adsenseHigh, adsenseAvg, sponsorPerVideoINR, totalMonthly, activeStreams});
+  renderDiversification(activeStreams);
+  renderStrategy({niche, subs, avgViews, videosMonth, engagement, blend, cfg});
+  renderActionPlan();
+  recalcSponsor();
+
+  $('results').style.display='block';
+  $('results').scrollIntoView({behavior:'smooth', block:'start'});
+  persistState();
+}
+
+function renderStats({adsenseLow, adsenseHigh, adsenseAvg, sponsorPerVideoINR, totalMonthly}){
+  const yearProjection = totalMonthly*12;
+  $('statGrid').innerHTML = `
+    <div class="stat">
+      <div class="label">AdSense Revenue (Monthly)</div>
+      <div class="value cyan">${inr(adsenseAvg)}</div>
+      <div class="subtext">Range: ${inr(adsenseLow)} – ${inr(adsenseHigh)}</div>
+    </div>
+    <div class="stat">
+      <div class="label">Est. Sponsorship / Video</div>
+      <div class="value purple">${inr(sponsorPerVideoINR)}</div>
+      <div class="subtext">Based on subs, niche & engagement</div>
+    </div>
+    <div class="stat">
+      <div class="label">Total Monthly Potential</div>
+      <div class="value">${inr(totalMonthly)}</div>
+      <div class="subtext">Across all selected streams</div>
+    </div>
+    <div class="stat">
+      <div class="label">Yearly Projection</div>
+      <div class="value cyan">${inr(yearProjection)}</div>
+      <div class="subtext">If current pace maintained</div>
+    </div>
+  `;
+}
+
+function renderDiversification(activeStreams){
+  let score = 0;
+  Object.keys(STREAM_META).forEach(key=>{
+    if(activeStreams.includes(key)) score += STREAM_META[key].weight;
+  });
+  score = Math.min(100, score);
+
+  const circumference = 440;
+  const offset = circumference - (circumference*score/100);
+  $('gaugeCircle').setAttribute('stroke-dashoffset', offset);
+  $('scoreNum').textContent = score;
+
+  let barsHtml = '';
+  Object.keys(STREAM_META).forEach(key=>{
+    const active = activeStreams.includes(key);
+    const val = active ? STREAM_META[key].weight : 0;
+    barsHtml += `
+      <div class="barrow">
+        <div class="bname">${STREAM_META[key].name}</div>
+        <div class="bartrack"><div class="barfill" style="width:${active? (val/22*100):0}%; ${!active?'background:rgba(255,255,255,0.08)':''}"></div></div>
+        <div class="bval">${active? 'ACTIVE':'—'}</div>
+      </div>
+    `;
+  });
+  $('streamBars').innerHTML = barsHtml;
+}
+
+function renderStrategy({niche, subs, avgViews, videosMonth, engagement, blend, cfg}){
+  const tier = subs<10000?'micro':subs<100000?'growing':subs<1000000?'established':'large';
+  const tips = [];
+
+  tips.push(`<b>Niche Positioning:</b> ${cfg.label} niche me tumhara CPM range $${cfg.low}-$${cfg.high} (Tier-1 audience) hai. Apni audience mix ${blend<0.3?'mostly India-heavy hai, isliye affiliate + sponsorship pe zyada focus karo AdSense se':'diverse hai, isliye AdSense bhi decent revenue de sakta hai'}.`);
+
+  if(tier==='micro'){
+    tips.push(`<b>Growth Priority:</b> 10K subs se neeche ho — is stage me consistency aur niche clarity sabse important hai. Weekly minimum ${Math.max(2,videosMonth)} videos maintain karo aur ek specific sub-niche pe focus karo.`);
+  } else if(tier==='growing'){
+    tips.push(`<b>Growth Priority:</b> 10K-100K range me ho — ab brand deals aane lage honge. Media kit banao aur khud brands ko outreach karna start karo, wait mat karo.`);
+  } else if(tier==='established'){
+    tips.push(`<b>Growth Priority:</b> 100K+ subs — ab diversification critical hai. Digital products aur memberships pe focus karo kyunki yeh recurring revenue dete hain, ads pe dependency kam karo.`);
+  } else {
+    tips.push(`<b>Growth Priority:</b> 1M+ subs — tumhare paas negotiation power hai. Direct brand deals aur apna khud ka product line consider karo, agency ke through jaane se pehle rates compare karo.`);
+  }
+
+  if(engagement < 3){
+    tips.push(`<b>Engagement Alert:</b> ${engagement}% engagement rate average se kam hai. Pehle 24 ghante me comments ka reply do, community tab use karo, aur videos ke end me clear CTA (question pucho) add karo.`);
+  } else {
+    tips.push(`<b>Engagement Strength:</b> ${engagement}% engagement solid hai — isse brands ko dikhana mat bhoolo pitch karte waqt, yeh sirf views se zyada important metric hai.`);
+  }
+
+  if(videosMonth < 4){
+    tips.push(`<b>Upload Frequency:</b> Sirf ${videosMonth} videos/month — YouTube algorithm consistency reward karta hai. Shorts add karke bhi posting frequency badha sakte ho without extra editing load.`);
+  }
+
+  tips.push(`<b>Revenue Diversification:</b> Sirf AdSense pe depend mat raho — ismein CPM fluctuate karta rehta hai. Kam se kam 3 income streams active karo (Sponsorship + Affiliate + ek Digital Product) taaki koi ek stream slow ho to baaki chalte rahein.`);
+
+  tips.push(`<b>Sponsorship Readiness:</b> Har video description me ek media-kit / collaboration email add karo — kai brands khud DM karte hain agar contact info easily visible ho.`);
+
+  $('strategyList').innerHTML = tips.map(t=>`<li>${t}</li>`).join('');
+}
+
+/* ================= SPONSORSHIP CALCULATOR ================= */
+function recalcSponsor(){
+  const niche = $('niche').value;
+  const subs = parseFloat($('subs').value)||0;
+  const engagement = parseFloat($('engagement').value)||0;
+  const cfg = NICHE_CPM[niche];
+  const type = $('sponsorType').value;
+
+  const engagementFactor = Math.max(0.6, Math.min(1.8, engagement/4));
+  let baseUSD = (subs/1000) * 10 * cfg.sponsorMult * engagementFactor;
+
+  let mult = 1;
+  if(type==='dedicated') mult = 2.2;
+  if(type==='shoutout') mult = 0.45;
+
+  const low = baseUSD*mult*USD_INR*0.8;
+  const high = baseUSD*mult*USD_INR*1.3;
+  $('sponsorRate').textContent = `${inr(low)} – ${inr(high)}`;
+}
+
+/* ================= ACTION PLAN ================= */
+function showPhase(idx){
+  document.querySelectorAll('.phase-tab').forEach((t,i)=>t.classList.toggle('active', i===idx));
+  document.querySelectorAll('.phase-content').forEach((c,i)=>c.classList.toggle('active', i===idx));
+}
+
+function renderActionPlan(){
+  const saved = JSON.parse(localStorage.getItem('yt_strategist_checklist')||'{}');
+  let html = '';
+  ACTION_PHASES.forEach((phase, pIdx)=>{
+    html += `<div class="phase-content ${pIdx===0?'active':''}">
+      <ul class="checklist">`;
+    phase.items.forEach((item, iIdx)=>{
+      const id = `p${pIdx}_i${iIdx}`;
+      const checked = saved[id] ? 'checked' : '';
+      const doneClass = saved[id] ? 'done' : '';
+      html += `<li class="${doneClass}" id="li_${id}">
+        <input type="checkbox" id="${id}" ${checked} onchange="toggleCheck('${id}')">
+        <label for="${id}">${item}</label>
+      </li>`;
+    });
+    html += `</ul></div>`;
+  });
+  $('phaseContainer').innerHTML = html;
+}
+
+function toggleCheck(id){
+  const saved = JSON.parse(localStorage.getItem('yt_strategist_checklist')||'{}');
+  const cb = $(id);
+  saved[id] = cb.checked;
+  localStorage.setItem('yt_strategist_checklist', JSON.stringify(saved));
+  $('li_'+id).classList.toggle('done', cb.checked);
+}
+
+/* ================= AI STRATEGY (Claude API optional) ================= */
+async function generateAIStrategy(){
+  const key = $('claudeApiKey').value.trim();
+  const out = $('aiStrategyOutput');
+  out.style.display='block';
+
+  const niche = $('niche').value;
+  const subs = $('subs').value;
+  const avgViews = $('avgViews').value;
+  const videosMonth = $('videosMonth').value;
+  const engagement = $('engagement').value;
+  const streams = getActiveStreams().map(s=>STREAM_META[s].name).join(', ');
+
+  if(!key){
+    out.textContent = "Rule-based strategy upar 'AI Growth Strategy' section me already generated hai. Deeper AI-personalized version ke liye apna Claude API key daalo aur dobara try karo.";
+    return;
+  }
+
+  out.textContent = "⏳ Generating personalized strategy...";
+
+  try{
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({
+        model:"claude-sonnet-4-6",
+        max_tokens:1000,
+        messages:[{
+          role:"user",
+          content:`You are a YouTube monetization strategist for Indian creators. Channel niche: ${niche}. Subscribers: ${subs}. Avg views/video: ${avgViews}. Videos/month: ${videosMonth}. Engagement rate: ${engagement}%. Active monetization streams: ${streams}. Give a detailed, specific, actionable growth and revenue-diversification strategy in Hinglish (mix of Hindi and English), formatted as short paragraphs with clear headers. Keep it practical for the Indian creator economy context.`
+        }]
+      })
+    });
+    const data = await response.json();
+    const text = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\\n');
+    out.textContent = text || "Kuch gadbad hui — please API key check karo ya dobara try karo.";
+  }catch(err){
+    out.textContent = "⚠️ AI strategy generate nahi ho payi. Rule-based strategy upar available hai. Error: " + err.message;
+  }
+}
+
+/* ================= SAVE / LOAD / EXPORT ================= */
+function collectState(){
+  return {
+    niche:$('niche').value,
+    subs:$('subs').value,
+    avgViews:$('avgViews').value,
+    videosMonth:$('videosMonth').value,
+    engagement:$('engagement').value,
+    tier1:$('tier1').value,
+    india:$('india').value,
+    otherC:$('otherC').value,
+    streams:getActiveStreams()
+  };
+}
+
+function persistState(){
+  localStorage.setItem('yt_strategist_state', JSON.stringify(collectState()));
+}
+
+function saveProfile(){
+  persistState();
+  alert('✅ Profile saved! Agli baar tool khologe to yeh data wapas load kar sakte ho.');
+}
+
+function loadProfile(){
+  const raw = localStorage.getItem('yt_strategist_state');
+  if(!raw){ alert('❌ Koi saved profile nahi mila.'); return; }
+  const s = JSON.parse(raw);
+  $('niche').value = s.niche;
+  $('subs').value = s.subs;
+  $('avgViews').value = s.avgViews;
+  $('videosMonth').value = s.videosMonth;
+  $('engagement').value = s.engagement;
+  $('tier1').value = s.tier1;
+  $('india').value = s.india;
+  $('otherC').value = s.otherC;
+  document.querySelectorAll('#streamGrid input').forEach(cb=>{
+    cb.checked = s.streams.includes(cb.value);
+    cb.closest('.checkitem').classList.toggle('active', cb.checked);
+  });
+  calculateAll();
+}
+
+function exportReport(){
+  if($('results').style.display !== 'block'){ alert('Pehle "Generate Revenue Strategy" dabao.'); return; }
+  const s = collectState();
+  const statText = $('statGrid').innerText;
+  const strategyText = $('strategyList').innerText;
+  const score = $('scoreNum').textContent;
+  const sponsorRate = $('sponsorRate').textContent;
+
+  const report = `AI YOUTUBE REVENUE STRATEGIST — REPORT
+Generated: ${new Date().toLocaleString('en-IN')}
+===========================================
+
+CHANNEL DETAILS
+Niche: ${NICHE_CPM[s.niche].label}
+Subscribers: ${s.subs}
+Avg Views/Video: ${s.avgViews}
+Videos/Month: ${s.videosMonth}
+Engagement Rate: ${s.engagement}%
+Audience Mix — Tier-1: ${s.tier1}% | India: ${s.india}% | Other: ${s.otherC}%
+Active Streams: ${s.streams.map(x=>STREAM_META[x].name).join(', ')}
+
+REVENUE ESTIMATE
+${statText}
+
+MONETIZATION DIVERSIFICATION SCORE: ${score}/100
+
+SPONSORSHIP RATE (per video): ${sponsorRate}
+
+GROWTH STRATEGY
+${strategyText}
+
+===========================================
+Generated by IncomeAIHub — AI YouTube Revenue Strategist
+`;
+
+  const blob = new Blob([report], {type:'text/plain'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'youtube-revenue-strategy-report.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+/* ================= INIT ================= */
+window.addEventListener('load', ()=>{
+  const raw = localStorage.getItem('yt_strategist_state');
+  if(raw){
+    try{ loadProfile(); }catch(e){}
+  }
+});
+</script>
+</body>
+</html>
